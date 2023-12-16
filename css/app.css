@@ -1,0 +1,121 @@
+.container {
+    margin: 20px;
+}
+
+.random-film {
+    padding: 10px;
+    border: 2px solid #4CAF50;
+}
+
+#title{
+    text-align: center;
+    margin: 1.2em;
+}
+
+#gamelist .row {
+    justify-content: center;
+}
+
+.card{
+    margin: 1.2em;
+    padding: 0.5em;
+    border: 2px solid white;
+}
+
+
+.rating-badge{
+    margin: 0.5em;
+    border-radius: 0.4em;
+    background-color: rgba(129, 129, 129, 0.249);
+}
+
+.platform-icon{
+    margin: 0.2em;
+}
+
+.game-title{
+    padding: 0.5em;
+}
+
+#platform-details{
+    margin: 2em;
+}
+
+.fa-xl{
+    margin: 0.7em;
+}
+
+#detailslist{
+    padding: 1em;
+}
+
+#detailslist h5{
+    padding: 1em;
+}
+
+.rating-box{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 0;
+    width: 4em;
+    height: 3.8em;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 0.5em;
+    margin-bottom: 1.5em;
+    background-color: rgba(153, 159,57, 1);
+    border-radius: 3px;
+    color: #fff;
+}
+
+.rating-box p{
+    margin: 0;
+}
+
+.rating-box h2{
+    margin: 0;
+}
+
+#loadmore-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 8em;
+    margin-left: 8em;
+}
+
+.video-container {
+    position: relative;
+    width: 100%; 
+    padding-bottom: 56.25%;
+  }
+  
+  .video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  #game-trailer{
+    margin: 2em;
+  }
+
+  #game-trailer h5{
+    margin-bottom: 1em;
+  }
+
+.hr{
+    margin-top: 2.5em;
+    margin-bottom: 2.5em;
+}
+
+#back-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 25em;
+    margin-left: 25em;
+}
