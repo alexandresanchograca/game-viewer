@@ -8,4 +8,5 @@ The website was made with HTML5 Boilerplate template.<br /> <br />
 * RequireJS<br />
 * fontawesome<br />
 
-<img src="screenshot.png" width=350 height=280></img>
+#### Screeshot:
+<img src="screenshot.png" width=350 height=275></img>
