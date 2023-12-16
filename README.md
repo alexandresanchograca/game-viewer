@@ -3,7 +3,7 @@ A website that lists video-games. We can traverse the site, see games, watch scr
 
 The website was made with HTML5 Boilerplate template to begin with.
 
-#Dependencies
+#Dependencies</br>
 It uses RAWG.io API to fetch video game data.
 Bootstrap
 RequireJS
