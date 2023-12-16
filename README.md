@@ -7,4 +7,4 @@ The website was made with HTML5 Boilerplate template to begin with.<br /> <br />
 * It uses RAWG.io Web service to fetch video game data.<br /> 
 * Bootstrap<br /> 
 * RequireJS<br />
-* fontawesomev<br />
+* fontawesome<br />
