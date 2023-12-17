@@ -101,6 +101,10 @@ define(function () {
         //Add search button functionality
         internals.renderSearchButton();
 
+        //Create a home / go back button
+        $("#back-btn").remove();
+        internals.elements.app.prepend(`<a href="#home" id="back-btn" class="btn btn-secondary"><i class="fa-solid fa-house"></i></a>`);
+
         var cardDeck = $(`<div class="row">`)
 
         gameListArr.forEach(function (game) {

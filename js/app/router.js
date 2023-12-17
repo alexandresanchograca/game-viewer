@@ -39,10 +39,8 @@ define(() => {
     }
 
     function loadDefaultRoute() {
-
         window.location.hash = internals.routes[internals.deafultRoute].hash;
         loadController(internals.routes[internals.deafultRoute].controller)
-
     }
 
     function hashCheck() {
@@ -55,7 +53,7 @@ define(() => {
         });
 
         if (!routeName) {
-            loadDeafultRoute();
+            loadDefaultRoute();
             return;
         }
 

@@ -106,6 +106,7 @@ define(function () {
         $(`<a href="#list" id="back-btn" class="btn btn-secondary"><i class="fa-solid fa-house"></i></a>`).appendTo("#gamelist");
 
         // Create the game card
+        $("#back-btn").remove();
         var gameCard = $(`<div class="card bg-dark text-white border-secondary" id="details-card" >`);
 
         // Add the game title
