@@ -10,4 +10,4 @@ The website was made with HTML5 Boilerplate template.<br /> <br />
 * fontawesome<br />
 
 #### Hosted on: <br />
-__https://alexandresanchograca.github.io/game-viewer
+*https://alexandresanchograca.github.io/game-viewer*
