@@ -6,15 +6,22 @@ define(function () {
 
     var externals = {};
 
+    function Rgba(r,g,b,a){
+        this.r = r;
+        this.g = g;
+        this.b = b;
+        this.a = a;
+    }
+
     //Linear RGB interpolation formula: c = a + (b - a) * t
     //Source: https://www.alanzucconi.com/2016/01/06/colour-interpolation/
     internals.linearInterpRGB = function(aCol, bCol, t){
-        return {
-            r: aCol.r + (bCol.r - aCol.r) * t,
-            g: aCol.g + (bCol.g - aCol.g) * t,
-            b: aCol.b + (bCol.b - aCol.b) * t,
-            a: aCol.a + (bCol.a - aCol.a) * t
-        }; 
+        return new Rgba(
+            aCol.r + (bCol.r - aCol.r) * t,
+            aCol.g + (bCol.g - aCol.g) * t,
+            aCol.b + (bCol.b - aCol.b) * t,
+            aCol.a + (bCol.a - aCol.a) * t
+        ); 
     }
 
     internals.platformIconMap = {
@@ -53,20 +60,8 @@ define(function () {
     }
 
     internals.renderRating = function (game) {
-
-        var startColor = {
-            r: 255,
-            g: 69,
-            b: 0,
-            a: 1
-        }
-
-        var endColor = {
-            r: 92,
-            g: 214,
-            b: 92,
-            a: 1
-        }
+        var startColor = new Rgba(255, 69, 0, 1);
+        var endColor = new Rgba(92, 214, 92, 1);
 
         //normalizing a ratio of 1.0-5.0 range to 0.00 to 1.00
         var normalizedRating = (game.rating.toFixed(1) - 1.0) / (5.0 - 1.0);
@@ -103,6 +98,7 @@ define(function () {
 
     externals.renderGameDetails = function (game, gameScreenShots, gameTrailers) {
         $('#gamelist').empty();
+        $('#search-box').remove();
 
         window.scrollTo({ top: 0, behavior: 'smooth'});
 

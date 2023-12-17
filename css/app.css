@@ -79,10 +79,10 @@
 
 #loadmore-btn{
     display: flex;
-    align-items: center;
     justify-content: center;
-    margin-right: 8em;
-    margin-left: 8em;
+    align-items: center;
+    width: 50%;
+    margin: 2.5em auto;
 }
 
 .video-container {
@@ -116,6 +116,22 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 25em;
-    margin-left: 25em;
+    margin-right: 40%;
+    margin-left: 40%;
+}
+
+#search-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    margin: 2.5em auto;
+}
+
+#search-box .form-control{
+    border-radius: 2em;
+}
+
+#search-box button{
+    border-radius: 2em;
 }
