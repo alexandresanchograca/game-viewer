@@ -47,10 +47,6 @@
             return window.location.hash.includes(routes[name].hash);
         });
 
-        console.log(routeName)
-
-        console.log(currentHash);
-
         if (!routeName) {
             loadDefaultRoute();
             return;
