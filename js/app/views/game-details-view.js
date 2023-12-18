@@ -1,10 +1,8 @@
-define(function () {
-    var internals = {
+
+    const internals = {
         handlers: {},
         elements: {}
     };
-
-    var externals = {};
 
     function Rgba(r,g,b,a){
         this.r = r;
@@ -29,9 +27,7 @@ define(function () {
         2: `<i class="platform-icon fa-brands fa-playstation fa-xl"></i>`,
         3: `<i class="platform-icon fa-brands fa-xbox fa-xl"></i>`,
         5: `<i class="platform-icon fa-brands fa-apple fa-xl"></i>`,
-        get: function (id) {
-            return this.hasOwnProperty(id) ? this[id] : "";
-        }
+        get: function (id) { return this.hasOwnProperty(id) ? this[id] : ""; }
     }
 
     internals.renderAvailablePlatforms = function (game) {
@@ -96,17 +92,17 @@ define(function () {
       </div>`
     }
 
-    externals.renderGameDetails = function (game, gameScreenShots, gameTrailers) {
+    var renderGameDetails = function (game, gameScreenShots, gameTrailers) {
         $('#gamelist').empty();
         $('#search-box').remove();
 
         window.scrollTo({ top: 0, behavior: 'smooth'});
 
         //Create a home / go back button
+        $("#back-btn").remove();
         $(`<a href="#list" id="back-btn" class="btn btn-secondary"><i class="fa-solid fa-house"></i></a>`).appendTo("#gamelist");
 
         // Create the game card
-        $("#back-btn").remove();
         var gameCard = $(`<div class="card bg-dark text-white border-secondary" id="details-card" >`);
 
         // Add the game title
@@ -156,5 +152,5 @@ define(function () {
         gameCard.appendTo("#gamelist");
     }
 
-    return externals;
-});
+    export default {renderGameDetails};
+

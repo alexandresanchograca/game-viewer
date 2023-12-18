@@ -1,5 +1,5 @@
-require(['router'], function(router) {
-    $(document).ready(function() {
-        router.start();
-    });
+import router from './router.js';
+
+$(document).ready(function() {
+    router.start();
 });

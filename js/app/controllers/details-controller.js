@@ -1,17 +1,14 @@
-define(['views/game-details-view', 'services/game-service'], function(gameView, gameService)
-{
-    var externals = {};
-    var internals = {};
+import gameView from '../views/game-details-view.js';
+import gameService from '../services/game-service.js';
 
-    externals.start = function() {
-        internals.initialize()
-    };
+const start = function() {
+    initialize()
+};
 
-    internals.initialize = function() {
-        gameService.getGameDetails( function(gameDetails, gameScreens, gameTrailers){
-            gameView.renderGameDetails(gameDetails, gameScreens, gameTrailers);
-        } );
-    };
+const initialize = function() {
+    gameService.getGameDetails( function(gameDetails, gameScreens, gameTrailers){
+        gameView.renderGameDetails(gameDetails, gameScreens, gameTrailers);
+    } );
+};
 
-    return externals;
-});
+export default {start};

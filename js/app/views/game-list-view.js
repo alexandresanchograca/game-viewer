@@ -1,10 +1,8 @@
-define(function () {
-    var internals = {
+
+    const internals = {
         handlers: {},
         elements: {}
     };
-
-    var externals = {};
 
     internals.platformIconMap = {
         1: `<i class="platform-icon fa-brands fa-windows"></i>`,
@@ -32,7 +30,7 @@ define(function () {
     }
 
     internals.createViewMoreButton = function (game) {
-        return `<a href="#details?id=${game.id}" class="btn btn-secondary">View More</a>`;
+        return `<a href="#details/${game.id}" class="btn btn-secondary">View More</a>`;
     }
 
     internals.renderThumbImage = function (game) {
@@ -53,7 +51,7 @@ define(function () {
             return;
         }
 
-        var gamePlatforms = `<div class="platforms">`;
+        let gamePlatforms = `<div class="platforms">`;
 
         game.parent_platforms.forEach(platform => {
             gamePlatforms += internals.platformIconMap.get(platform.platform.id);
@@ -90,11 +88,11 @@ define(function () {
         internals.elements.searchBar.append(internals.elements.searchButton);
     };
 
-    externals.bind = function (event, handler) {
+    const bind = function (event, handler) {
         internals.handlers[event] = handler;
     };
 
-    externals.render = function (gameListArr) {
+    const render = function (gameListArr) {
         internals.elements.app = $('#app');
         internals.elements.gameList = $('#gamelist');
 
@@ -105,11 +103,11 @@ define(function () {
         $("#back-btn").remove();
         internals.elements.app.prepend(`<a href="#home" id="back-btn" class="btn btn-secondary"><i class="fa-solid fa-house"></i></a>`);
 
-        var cardDeck = $(`<div class="row">`)
+        let cardDeck = $(`<div class="row">`)
 
         gameListArr.forEach(function (game) {
 
-            var gameCard = $(`
+            let gameCard = $(`
             <div class="card border-secondary bg-dark text-white text-center" style="width: 18rem;">
                 ${internals.renderThumbImage(game)}
                 <div class="card-body">
@@ -127,5 +125,5 @@ define(function () {
         internals.elements.gameList.append(cardDeck);
         internals.createLoadMoreButton();
     }
-    return externals;
-});
+
+    export default {bind, render};

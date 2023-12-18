@@ -1,73 +1,71 @@
-define(() => {
-    var internals = {};
-    var externals = {};
+    import gameListController from './controllers/game-list-controller.js'
+    import detailsController from './controllers/details-controller.js'
 
-    internals.routes = {
+    const defaultRoute = "list";
+    
+    var currentHash = "";
+
+    const routes = {
 
         list: {
             hash: "#list",
-            controller: "game-list-controller"
+            controller: gameListController
         },
 
         details: {
             hash: "#details",
-            controller: "details-controller"
+            controller: detailsController
         },
     };
 
-    internals.deafultRoute = "list";
-    
-    internals.currentHash = "";
+    function loadController(controller) {
 
-    function loadController(controllerName) {
+        currentHash = window.location.hash;
 
-        internals.currentHash = window.location.hash;
+        try {
 
-        require(['controllers/' + controllerName], function (controller) {
+            controller.start();
 
-            try {
+        } catch (err) {
 
-                controller.start();
-
-            } catch (err) {
-
-                console.log(err.stack);
-
-                loadDefaultRoute();
-            }
-        })
+            console.log(err.stack);
+            loadDefaultRoute();
+        }
     }
 
     function loadDefaultRoute() {
-        window.location.hash = internals.routes[internals.deafultRoute].hash;
-        loadController(internals.routes[internals.deafultRoute].controller)
+        window.location.hash = routes[defaultRoute].hash;
+        loadController(routes[defaultRoute].controller)
     }
 
     function hashCheck() {
-        if (window.location.hash === internals.currentHash) {
+        if (window.location.hash === currentHash) {
             return;
         }
 
-        var routeName = Object.keys(internals.routes).find(function (name) {
-            return window.location.hash.includes(internals.routes[name].hash);
+        var routeName = Object.keys(routes).find(function (name) {
+            return window.location.hash.includes(routes[name].hash);
         });
+
+        console.log(routeName)
+
+        console.log(currentHash);
 
         if (!routeName) {
             loadDefaultRoute();
             return;
         }
 
-        loadController(internals.routes[routeName].controller);
+        loadController(routes[routeName].controller);
     }
 
-    externals.start = function () {
+    var start = function () {
 
         if (!window.location.hash) {
-            window.location.hash = internals.routes[internals.deafultRoute].hash;
+            window.location.hash = routes[defaultRoute].hash;
         }
 
         setInterval(hashCheck, 100);
     }
 
-    return externals;
-});
+    export default {start} // default export

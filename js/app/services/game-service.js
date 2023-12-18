@@ -1,58 +1,54 @@
 /** Used to fetch data from the API */
 
-define(function () {
-    var internals = {}; // internal state
-    var externals = {}; // external api
+    const internals = {}; // internal state
 
-    internals.rawg_api_url = "https://api.rawg.io/api/games";
-    internals.rawg_api_key = "?key=55e2266c102f46bca8fc7ac9b06aaca8";
+    const rawg_api_url = "https://api.rawg.io/api/games";
+    const rawg_api_key = "?key=55e2266c102f46bca8fc7ac9b06aaca8";
 
-    function RequestData(endpoint, page){
-        this.base_url = internals.rawg_api_url,
+    function RequestData(endpoint, page = ""){
+        this.base_url = rawg_api_url,
         this.endpoint = endpoint;
         this.page = page;
     }
 
-    internals.doGetRequest = function (requestData) {
+    internals.doGetRequest = async function (requestData) {
         internals.lastRequest = requestData;
-        return fetch(requestData.base_url + requestData.endpoint + requestData.page)
-            .then(function (arg) {
-                return arg.json().then(function (arg) {
-                    return arg;
-                });
-            })
+        var response = await fetch(requestData.base_url + requestData.endpoint + requestData.page);
+        return await response.json();
     }
 
     internals.getGameId = function () {
         var hashValue = window.location.hash;
-        var id = hashValue.substring(hashValue.indexOf("id=") + 3);
+        var id = hashValue.substring(hashValue.indexOf("#details/") + "#details/".length);
         return id;
     }
 
     internals.getGameDetails = function () {
-        var requestData = new RequestData("/" + internals.getGameId() + internals.rawg_api_key, "");
+        var requestData = new RequestData("/" + internals.getGameId() + rawg_api_key);
         return internals.doGetRequest(requestData);
     }
 
     internals.getGameScreenshots = function () {
-        var requestData = new RequestData("/" + internals.getGameId() + "/screenshots" + internals.rawg_api_key, "");
+        var requestData = new RequestData("/" + internals.getGameId() + "/screenshots" + rawg_api_key);
         return internals.doGetRequest(requestData);
     }
 
     internals.getGameTrailers = function () {
-        var requestData = new RequestData("/" + internals.getGameId() + "/movies" + internals.rawg_api_key, "");
+        var requestData = new RequestData("/" + internals.getGameId() + "/movies" + rawg_api_key);
         return internals.doGetRequest(requestData);
     }
 
-    externals.loadMoreSearch = function(renderFnCallback){
+    var loadMoreSearch = async function(renderFnCallback){
         var gameName = $("#search-input").val();
         internals.lastPageNum++;
 
         internals.lastRequest.page++;
-        internals.doGetRequest(internals.lastRequest).then( arg => renderFnCallback(arg.results) );
+        var gameList = await internals.doGetRequest(internals.lastRequest);
+
+        renderFnCallback(gameList.results);
     }
 
-    externals.searchGame = function (renderFnCallback) {
+    var searchGame = async function(renderFnCallback) {
         $('#details-card').remove();
         $('#gamelist').empty();
 
@@ -60,29 +56,31 @@ define(function () {
         internals.lastPageNum = 1;
 
         var requestData = 
-            new RequestData(internals.rawg_api_key + "&search=" + gameName + "&page=", internals.lastPageNum);
+            new RequestData(rawg_api_key + "&search=" + gameName + "&page=", internals.lastPageNum);
 
-        internals.doGetRequest(requestData).then( arg => renderFnCallback(arg.results) );
+        var gameList = await internals.doGetRequest(requestData);
+
+        renderFnCallback(gameList.results);
     }
 
-    externals.getGameList = function (renderFnCallback) {
+    var getGameList = async function(renderFnCallback) {
         $('#details-card').remove();
         $('#gamelist').empty();
 
         internals.lastPageNum = 1;
 
         var requestData = 
-            new RequestData(internals.rawg_api_key + "&page=", internals.lastPageNum);
+            new RequestData(rawg_api_key + "&page=", internals.lastPageNum);
 
-        internals.doGetRequest(requestData).then( arg => renderFnCallback(arg.results) );
+        var gameList = await internals.doGetRequest(requestData);
+
+        renderFnCallback(gameList.results);
     }
 
-    externals.getGameDetails = function (renderFnCallback) {
-        Promise.all([internals.getGameDetails(), internals.getGameScreenshots(), internals.getGameTrailers()])
-            .then(function (gameData) {
-                renderFnCallback(gameData[0], gameData[1], gameData[2]);
-            })
+    var getGameDetails = async function (renderFnCallback) {
+        const [gameDetails, gameScreenshots, gameTrailers] = await Promise.all([internals.getGameDetails(), internals.getGameScreenshots(), internals.getGameTrailers()]);
+        
+        renderFnCallback(gameDetails, gameScreenshots, gameTrailers);
     }
 
-    return externals;
-});
+    export default {loadMoreSearch, searchGame, getGameList, getGameDetails};

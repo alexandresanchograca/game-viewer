@@ -1,35 +1,32 @@
-define(['views/game-list-view', 'services/game-service'], function(gameView, gameService)
-{
-    var externals = {};
-    var internals = {};
+import gameView from '../views/game-list-view.js';
+import gameService from '../services/game-service.js';
 
-    externals.start = function() {
-        internals.bindEventHandlers();
-        internals.initialize()
-    };
+const start = function() {
+    bindEventHandlers();
+    initialize()
+};
 
-    internals.bindEventHandlers = function() {
-        gameView.bind('searchBtn', internals.searchButtonHandler);
-        gameView.bind('loadMoreBtn', internals.loadMoreSearchHandler);
-    };
+const bindEventHandlers = function() {
+    gameView.bind('searchBtn', searchButtonHandler);
+    gameView.bind('loadMoreBtn', loadMoreSearchHandler);
+};
 
-    internals.searchButtonHandler = function() {
-        gameService.searchGame(function(gameSearchArr) {
-            gameView.render(gameSearchArr);
-        });
-    };
+const searchButtonHandler = function() {
+    gameService.searchGame(function(gameSearchArr) {
+        gameView.render(gameSearchArr);
+    });
+};
 
-    internals.loadMoreSearchHandler = function() {
-        gameService.loadMoreSearch(function(gameSearchArr) {
-            gameView.render(gameSearchArr);
-        });
-    };
+const loadMoreSearchHandler = function() {
+    gameService.loadMoreSearch(function(gameSearchArr) {
+        gameView.render(gameSearchArr);
+    });
+};
 
-    internals.initialize = function() {
-        gameService.getGameList( function(gameListArr){
-            gameView.render(gameListArr);
-        } );
-    };
+const initialize = function() {
+    gameService.getGameList( function(gameListArr){
+        gameView.render(gameListArr);
+    } );
+};
 
-    return externals;
-});
+export default {start};
